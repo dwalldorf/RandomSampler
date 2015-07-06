@@ -2,6 +2,7 @@
 
 # intellij / gradle files
 .idea/
+.gradle/
 build/
 *.iml
 gradle*
