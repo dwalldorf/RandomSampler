@@ -3,6 +3,7 @@
 # intellij / gradle files
 .idea/
 .gradle/
+gradle/
 build/
 *.iml
 gradlew*
