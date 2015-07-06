@@ -5,7 +5,7 @@
 .gradle/
 build/
 *.iml
-gradle*
+gradlew*
 
 
 # Mobile Tools for Java (J2ME)
