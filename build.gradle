@@ -1,0 +1,40 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
+}
+
+group 'dwalldorf'
+version '0.1-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+  jcenter()
+  mavenCentral()
+}
+
+jar {
+  baseName = projectName
+  version = projectVersion
+
+  manifest {
+    attributes 'Main-Class': 'dwalldorf.elSampleroRandomo.Application',
+        'Class-Path': configurations.runtime.files.collect { "lib/$it.name" }.join(' ')
+  }
+}
+
+dependencies {
+  testCompile 'junit:junit:4.11'
+  testCompile 'org.mockito:mockito-core:1.+'
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = gradleVersion
+  distributionUrl = 'https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip'
+}
