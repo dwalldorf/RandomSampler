@@ -12,6 +12,7 @@ import helper.BaseTest;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -103,6 +104,34 @@ public class RandomStreamSamplerTest extends BaseTest {
     }
     long avgDiff = diffSum / diffAmount;
     assertTrue(avgDiff >= 1024);
+  }
+
+  @Test
+  public void streamSmallerThanK() {
+    int k = 10;
+    String inputStr = "1234";
+
+    InputStream stream = IOUtils.toInputStream(inputStr);
+    sampler.consume(stream, k);
+    verify(eventPublisher).publishEvent(samplingFinishedEventCaptor.capture());
+
+    StreamSamplingFinishedEvent event = samplingFinishedEventCaptor.getValue();
+    assertEquals(inputStr.length(), event.getResult().getSamples().size());
+    assertEquals(inputStr, event.getResult().getSampleString());
+  }
+
+  @Test
+  public void streamEqualToK() {
+    int k = 5;
+    String inputStr = "12345";
+
+    InputStream stream = IOUtils.toInputStream(inputStr);
+    sampler.consume(stream, k);
+    verify(eventPublisher).publishEvent(samplingFinishedEventCaptor.capture());
+
+    StreamSamplingFinishedEvent event = samplingFinishedEventCaptor.getValue();
+    assertEquals(inputStr.length(), event.getResult().getSamples().size());
+    assertEquals(inputStr, event.getResult().getSampleString());
   }
 
 }

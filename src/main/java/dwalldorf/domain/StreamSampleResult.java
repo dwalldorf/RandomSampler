@@ -23,4 +23,13 @@ public class StreamSampleResult {
   public long getProcessedBytes() {
     return processedBytes;
   }
+
+  public String getSampleString() {
+    final StringBuffer b = new StringBuffer();
+    sampleResult.forEach(r -> {
+      b.append(r.getChar());
+    });
+    return b.toString();
+  }
+
 }
