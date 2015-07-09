@@ -53,7 +53,7 @@ public class RandomStreamSampler {
 
       while ((currentByte = reader.read()) != -1) {
         currentSample = new StreamSample(count, (char) currentByte);
-        takeSample(currentSample);
+        randomlyStoreSample(currentSample);
         count++;
       }
 
@@ -75,20 +75,25 @@ public class RandomStreamSampler {
   }
 
   /**
-   * Will add {@code sample} to the resultList.
+   * Will randomly decide to add the sample to the resultList or not
    *
    * @param sample to evaluate and add
    */
-  private void takeSample(final StreamSample sample) {
+  private void randomlyStoreSample(final StreamSample sample) {
     long originalPos = sample.getOriginalPos();
 
+    // add samples until we reach k
     if (originalPos < k) {
       resultList.add(sample);
-    } else {
-      StreamSample entry = resultList.get(new Random().nextInt(resultList.size()));
+    }
+    // k reached
+    else {
+      // get random sample from resultList
+      StreamSample randomSample = resultList.get(new Random().nextInt(resultList.size()));
 
-      if (entry.getRand() < sample.getRand()) {
-        resultList.remove(entry);
+      // random-based comparison - replace randomSample or not
+      if (randomSample.getRand() < sample.getRand()) {
+        resultList.remove(randomSample);
         resultList.add(sample);
       }
     }
