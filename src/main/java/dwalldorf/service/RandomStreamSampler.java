@@ -85,14 +85,10 @@ public class RandomStreamSampler {
     if (originalPos < k) {
       resultList.add(sample);
     } else {
-      if (originalPos >= k) {
-        StreamSample entry = resultList.get(new Random().nextInt(resultList.size()));
+      StreamSample entry = resultList.get(new Random().nextInt(resultList.size()));
 
-        if (entry.getRand() < sample.getRand()) {
-          resultList.remove(entry);
-          resultList.add(sample);
-        }
-      } else {
+      if (entry.getRand() < sample.getRand()) {
+        resultList.remove(entry);
         resultList.add(sample);
       }
     }

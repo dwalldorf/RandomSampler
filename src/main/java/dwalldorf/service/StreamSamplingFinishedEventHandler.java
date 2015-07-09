@@ -17,7 +17,7 @@ public class StreamSamplingFinishedEventHandler implements ApplicationListener<S
   @Override
   public void onApplicationEvent(StreamSamplingFinishedEvent event) {
     logResult(event);
-    // do what you need to do with this samples
+    // do what you need to do with the sample
   }
 
   private void logResult(StreamSamplingFinishedEvent event) {
