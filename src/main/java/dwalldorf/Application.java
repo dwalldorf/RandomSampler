@@ -2,7 +2,6 @@ package dwalldorf;
 
 import dwalldorf.config.AppConfig;
 import dwalldorf.service.ApplicationLauncher;
-import java.util.Arrays;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
