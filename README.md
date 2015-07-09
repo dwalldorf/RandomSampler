@@ -1,4 +1,4 @@
-# elSampleroRandomo
+# Random stream sampler
 Stream Sampler example
 
 
