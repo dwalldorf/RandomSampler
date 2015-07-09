@@ -5,14 +5,15 @@ buildscript {
   }
 }
 
-group 'dwalldorf'
-version '0.1-SNAPSHOT'
+version projectVersion
 
 apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'idea'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = sourceVersion
+targetCompatibility = sourceVersion
+mainClassName = 'dwalldorf.Application'
 
 repositories {
   jcenter()
@@ -24,15 +25,23 @@ jar {
   version = projectVersion
 
   manifest {
-    attributes 'Main-Class': 'dwalldorf.elSampleroRandomo.Application',
-        'Class-Path': configurations.runtime.files.collect { "lib/$it.name" }.join(' ')
+    attributes 'Main-Class': mainClassPath
   }
 }
 
 dependencies {
+  compile 'org.springframework:spring-context:4.1.7.RELEASE'
+  compile 'commons-io:commons-io:2.4'
+  compile 'log4j:log4j:1.2.17'
+
   testCompile 'junit:junit:4.11'
   testCompile 'org.mockito:mockito-core:1.+'
 }
+
+task setSystemVars << {
+  run.systemProperties = System.properties
+}
+run.dependsOn(setSystemVars)
 
 task wrapper(type: Wrapper) {
   gradleVersion = gradleVersion
